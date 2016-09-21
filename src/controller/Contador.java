@@ -55,6 +55,7 @@ public class Contador extends HttpServlet {
 		boton.append(
 				"<a href=\"http://192.168.203.223:8080/PrimeraEvaluacion/Contador\">Pusla aqui para aumentar el contador</a><br/>");
 		salida.append("El contador vale: " + contador + "</br> La id es = " + id);
+		//cambio github
 	}
 
 	/**
