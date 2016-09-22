@@ -57,7 +57,7 @@ public class Contador extends HttpServlet {
 		
 		clicks.add(new Click(new Cont(contador.getContador())));*/
 		
-		/*Integer contador = (Integer) sesion.getAttribute("contador");
+		Integer contador = (Integer) sesion.getAttribute("contador");
 		if (contador == null){
 			contador = 0;
 		}
@@ -70,16 +70,8 @@ public class Contador extends HttpServlet {
 		}
 		
 		clicks.add(new Click(contador));
-		sesion.setAttribute("clicks", clicks);*/
-		
-		if (sesion.getAttribute("clicks") == null && sesion.getAttribute("contador") == null) {
-			sesion.setAttribute("clicks", new ArrayList<Click>());
-			sesion.setAttribute("contador", new Integer(0));
-		}
-		int contador = (int) sesion.getAttribute("contador");
-		ArrayList<Click> clicks = (ArrayList<Click>) sesion.getAttribute("clicks");
-		contador++;
-		clicks.add(new Click(contador));
+		sesion.setAttribute("clicks", clicks);
+
 		
 		String id = sesion.getId();
 		PrintWriter salida = response.getWriter();
@@ -90,10 +82,6 @@ public class Contador extends HttpServlet {
 			salida.append("<html><body>El click numero " + c.getCont().getContador() + " se pulso a fecha de " + c.getFecha() + "<br/></body></html>");
 		}*/
 		
-		/*for(Click c: clicks){
-			salida.append("<html><body>El click numero " + c.getContador() + " se pulso a fecha de " + c.getFecha() + "<br/></body></html>");
-		}*/
-	
 		for(Click c: clicks){
 			salida.append("<html><body>El click numero " + c.getContador() + " se pulso a fecha de " + c.getFecha() + "<br/></body></html>");
 		}
