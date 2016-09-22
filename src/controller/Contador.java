@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import model.Click;
+import model.Cont;
 
 /**
  * Servlet implementation class Contador
@@ -43,19 +48,42 @@ public class Contador extends HttpServlet {
 		// response.getWriter().append("Served at:
 		// ").append(request.getContextPath());
 		HttpSession sesion = request.getSession();
-		Integer contador = (Integer) sesion.getAttribute("contador");
-		if (contador == null) {
+		if (sesion.getAttribute("clicks") == null && sesion.getAttribute("contador") == null) {
+			sesion.setAttribute("clicks", new ArrayList<Click>());
+			sesion.setAttribute("contador", new Cont());
+		}
+		Cont contador =  (Cont) sesion.getAttribute("contador");
+		ArrayList<Click> clicks = (ArrayList<Click>) sesion.getAttribute("clicks");
+		contador.setContador(contador.getContador() + 1);
+		
+		clicks.add(new Click(new Cont(contador.getContador() + 1)));
+		
+		/*Integer contador = (Integer) sesion.getAttribute("contador");
+		if (contador == null){
 			contador = 0;
 		}
 		contador++;
 		sesion.setAttribute("contador", contador);
+		
+		ArrayList<Click> clicks = (ArrayList<Click>) sesion.getAttribute("clicks");
+		if (clicks == null){
+			clicks = new ArrayList<>();
+		}
+		
+		clicks.add(new Click(contador));
+		sesion.setAttribute("clicks", clicks);*/
+		
 		String id = sesion.getId();
 		PrintWriter salida = response.getWriter();
-		PrintWriter boton = response.getWriter();
-		boton.append(
-				"<a href=\"http://192.168.203.223:8080/PrimeraEvaluacion/Contador\">Pusla aqui para aumentar el contador</a><br/>");
-		salida.append("El contador vale: " + contador + "</br> La id es = " + id);
-		//cambio github
+		salida.append("<html><body>La id es: " + id +"<br/></body></html>");
+		salida.append("<html><body>El contador vale: " + contador + "<br/></body></html>");
+		
+		
+		
+		for(Click c: clicks){
+			salida.append("<html><body>El click numero " + c.getContador() + " se pulso a fecha de " + c.getFecha() + "<br/></body></html>");
+		}
+	
 	}
 
 	/**
