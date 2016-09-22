@@ -18,6 +18,14 @@ public class Click {
 		fecha = new Date();
 	}
 
+	public Cont getCont() {
+		return cont;
+	}
+
+	public void setCont(Cont cont) {
+		this.cont = cont;
+	}
+
 	public int getContador() {
 		return contador;
 	}
