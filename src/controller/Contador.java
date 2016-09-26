@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.User;
+
 import model.Click;
 import model.Cont;
 
@@ -47,6 +49,7 @@ public class Contador extends HttpServlet {
 		
 		HttpSession sesion = request.getSession();
 		
+		//Contador con clase Contador
 		/*if (sesion.getAttribute("clicks") == null && sesion.getAttribute("contador") == null) {
 			sesion.setAttribute("clicks", new ArrayList<Click>());
 			sesion.setAttribute("contador", new Cont());
@@ -57,21 +60,20 @@ public class Contador extends HttpServlet {
 		
 		clicks.add(new Click(new Cont(contador.getContador())));*/
 		
+		//Contador con Integer
 		Integer contador = (Integer) sesion.getAttribute("contador");
+		ArrayList<Click> clicks = (ArrayList<Click>) sesion.getAttribute("clicks");
+		
 		if (contador == null){
 			contador = 0;
-		}
-		contador++;
-		sesion.setAttribute("contador", contador);
-		
-		ArrayList<Click> clicks = (ArrayList<Click>) sesion.getAttribute("clicks");
-		if (clicks == null){
 			clicks = new ArrayList<>();
 		}
 		
+		contador++;
 		clicks.add(new Click(contador));
+		
+		sesion.setAttribute("contador", contador);		
 		sesion.setAttribute("clicks", clicks);
-
 		
 		String id = sesion.getId();
 		PrintWriter salida = response.getWriter();
