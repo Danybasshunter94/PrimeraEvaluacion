@@ -72,8 +72,8 @@ public class Contador extends HttpServlet {
 			contexto.setAttribute("clicks", new ArrayList<ClickContexto>());
 		}
 		
+		ArrayList<ClickContexto> clicksContexto = (ArrayList<ClickContexto>) contexto.getAttribute("clicks");
 		ClickContexto clickContexto = new ClickContexto(sesion.getId(), click);
-		ArrayList<ClickContexto> clicksContexto = new ArrayList<ClickContexto>();
 		clicksContexto.add(clickContexto);
 		
 		//Cedes el control al JSP (vista)
