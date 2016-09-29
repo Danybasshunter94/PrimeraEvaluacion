@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.catalina.User;
 
 import model.Click;
+import model.ClickContexto;
 import model.Cont;
 
 /**
@@ -47,10 +49,12 @@ public class Contador extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		
 		HttpSession sesion = request.getSession();
 		
 		//Contador con clase Contador
-		/*if (sesion.getAttribute("clicks") == null && sesion.getAttribute("contador") == null) {
+		if (sesion.getAttribute("clicks") == null && sesion.getAttribute("contador") == null) {
 			sesion.setAttribute("clicks", new ArrayList<Click>());
 			sesion.setAttribute("contador", new Cont());
 		}
@@ -58,10 +62,25 @@ public class Contador extends HttpServlet {
 		ArrayList<Click> clicks = (ArrayList<Click>) sesion.getAttribute("clicks");
 		contador.setContador(contador.getContador() + 1);
 		
-		clicks.add(new Click(new Cont(contador.getContador())));*/
+		Click click = new Click(new Cont(contador.getContador()));
+		clicks.add(click);
+		
+		//Manejo lista en contexto
+		ServletContext contexto = request.getServletContext();
+		
+		if(contexto.getAttribute("clicks") == null){
+			contexto.setAttribute("clicks", new ArrayList<ClickContexto>());
+		}
+		
+		ClickContexto clickContexto = new ClickContexto(sesion.getId(), click);
+		ArrayList<ClickContexto> clicksContexto = new ArrayList<ClickContexto>();
+		clicksContexto.add(clickContexto);
+		
+		//Cedes el control al JSP (vista)
+		request.getRequestDispatcher("/JSP/clickscontexto.jsp").forward(request, response);
 		
 		//Contador con Integer
-		Integer contador = (Integer) sesion.getAttribute("contador");
+	/*	Integer contador = (Integer) sesion.getAttribute("contador");
 		ArrayList<Click> clicks = (ArrayList<Click>) sesion.getAttribute("clicks");
 		
 		if (contador == null){
@@ -74,19 +93,7 @@ public class Contador extends HttpServlet {
 		
 		sesion.setAttribute("contador", contador);		
 		sesion.setAttribute("clicks", clicks);
-		
-		String id = sesion.getId();
-		PrintWriter salida = response.getWriter();
-		salida.append("<html><body>La id es: " + id +"<br/></body></html>");
-		salida.append("<html><body>El contador vale: " + contador + "<br/></body></html>");
-		
-		/*for(Click c: clicks){
-			salida.append("<html><body>El click numero " + c.getCont().getContador() + " se pulso a fecha de " + c.getFecha() + "<br/></body></html>");
-		}*/
-		
-		for(Click c: clicks){
-			salida.append("<html><body>El click numero " + c.getContador() + " se pulso a fecha de " + c.getFecha() + "<br/></body></html>");
-		}
+		*/
 	}
 
 	/**
