@@ -23,7 +23,7 @@ import model.Cont;
 /**
  * Servlet implementation class Contador
  */
-@WebServlet("/Contador")
+@WebServlet(name="c", urlPatterns="/Contador")
 public class Contador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,10 +36,17 @@ public class Contador extends HttpServlet {
 	}
 
 	@Override
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+	public void init(ServletConfig config) throws ServletException {		
 		super.init(config);
-		System.out.println("Cargando el server");
+		
+		ServletContext contexto = this.getServletContext();
+		
+		Cont contador = new Cont(5);
+		contexto.setAttribute("contador", contador);
+		
+		String parametro = config.getInitParameter("fichero");
+		System.out.println(parametro);
+		System.out.println(this.getServletContext().getInitParameter("global1"));
 	}
 
 	/**
@@ -67,6 +74,8 @@ public class Contador extends HttpServlet {
 		
 		//Manejo lista en contexto
 		ServletContext contexto = request.getServletContext();
+		
+		System.out.println(contexto.getAttribute("contador").toString());
 		
 		if(contexto.getAttribute("clicks") == null){
 			contexto.setAttribute("clicks", new ArrayList<ClickContexto>());

@@ -21,4 +21,9 @@ public class Cont {
 	public void setContador(int contador) {
 		this.contador = contador;
 	}
+
+	@Override
+	public String toString() {
+		return "Cont [contador=" + contador + "]";
+	}
 }
