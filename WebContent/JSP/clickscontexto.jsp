@@ -54,6 +54,7 @@ table, tr, td {
 				String idSesionContexto = clicksContexto.get(i).getIdSesion();
 				String fechaContexto = clicksContexto.get(i).getClick().getFecha().toString();
 				int contadorContexto = clicksContexto.get(i).getClick().getCont().getContador();
+				String clase;
 				if (i < clicksSesion.size()) {
 					fechaSesion = clicksSesion.get(i).getFecha().toString();
 					contadorSesion = clicksSesion.get(i).getCont().getContador() + "";
@@ -68,20 +69,14 @@ table, tr, td {
 			<td><%=fechaSesion%></td>
 			<%
 				if (idSesionContexto.equals(session.getId())) {
-			%>
-			<td class="sesion"><%=idSesionContexto%></td>
-			<td class="sesion"><%=contadorContexto%></td>
-			<td class="sesion"><%=fechaContexto%></td>
-			<%
+					clase = "class=\"sesion\"";
 				} else {
-			%>
-			<td><%=idSesionContexto%></td>
-			<td><%=contadorContexto%></td>
-			<td><%=fechaContexto%></td>
-			<%
+					clase = "";
 				}
 			%>
-
+			<td <%=clase%>><%=idSesionContexto%></td>
+			<td <%=clase%>><%=contadorContexto%></td>
+			<td <%=clase%>><%=fechaContexto%></td>
 		</tr>
 		<%
 			}

@@ -10,6 +10,10 @@ public class Cont {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public void incrementarContador(){
+		contador++;
+	}
+	
 	public Cont(int valor){
 		this.contador = valor;
 	}

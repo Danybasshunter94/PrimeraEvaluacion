@@ -55,19 +55,16 @@ public class Contador extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		
-		
 		HttpSession sesion = request.getSession();
 		
 		//Contador con clase Contador
-		if (sesion.getAttribute("clicks") == null && sesion.getAttribute("contador") == null) {
+		if (sesion.isNew()) {
 			sesion.setAttribute("clicks", new ArrayList<Click>());
 			sesion.setAttribute("contador", new Cont());
 		}
 		Cont contador =  (Cont) sesion.getAttribute("contador");
 		ArrayList<Click> clicks = (ArrayList<Click>) sesion.getAttribute("clicks");
-		contador.setContador(contador.getContador() + 1);
+		contador.incrementarContador();
 		
 		Click click = new Click(new Cont(contador.getContador()));
 		clicks.add(click);
@@ -75,7 +72,7 @@ public class Contador extends HttpServlet {
 		//Manejo lista en contexto
 		ServletContext contexto = request.getServletContext();
 		
-		System.out.println(contexto.getAttribute("contador").toString());
+		//System.out.println(contexto.getAttribute("contador").toString());
 		
 		if(contexto.getAttribute("clicks") == null){
 			contexto.setAttribute("clicks", new ArrayList<ClickContexto>());
