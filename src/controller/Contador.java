@@ -58,7 +58,7 @@ public class Contador extends HttpServlet {
 		HttpSession sesion = request.getSession();
 		
 		//Contador con clase Contador
-		if (sesion.isNew()) {
+		if (sesion.getAttribute("clicks") == null) {
 			sesion.setAttribute("clicks", new ArrayList<Click>());
 			sesion.setAttribute("contador", new Cont());
 		}
