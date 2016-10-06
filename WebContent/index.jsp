@@ -9,7 +9,7 @@
 <body>
 	<ul>
 		<li><a href="Contador">Contador</a></li>
-		<li><a href="servlets">Tomcat examples</a></li>
+		<li><a href="examples">Tomcat examples</a></li>
 	</ul>
 </body>
 </html>
